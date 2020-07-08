@@ -8,14 +8,11 @@ https://developers.meethue.com/documentation/color-conversions-rgb-xy
 
 I've used the formulas and Objective-C example code and transfered it to JavaScript.
 
-
 Examples:
-
 let rgb = cie_to_rgb(0.6611, 0.2936)
 let cie = rgb_to_cie(255, 39, 60)
 
 ------------------------------------------------------------------------------------
-
 The MIT License (MIT)
 
 Copyright (c) 2017 www.usolved.net
@@ -47,7 +44,7 @@ THE SOFTWARE.
  * @param {Number} brightness - Ranges from 1 to 254
  * @return {Array} Array that contains the color values for red, green and blue
  */
-exports.cie_to_rgb = function ( x, y, brightness)
+exports.cie_to_rgb = function( x, y, brightness)
 {
 	// Set to maximum brightness if no value was given
 	if (brightness === undefined) brightness = 254;
@@ -104,22 +101,22 @@ exports.cie_to_rgb = function ( x, y, brightness)
  * @param {Number} blue
  * @return {Array} Array that contains the CIE color values for x and y
  */
-exports.rgb_to_cie = function ( red, green, blue)
+exports.rgb_to_cie = function( red, green, blue)
 {
 	// Apply a gamma correction to the RGB values, which makes the color more vivid
   // and more the like the color displayed on the screen of your device
-	const red 	= (red   > 0.04045) ? Math.pow((red   + 0.055) / 1.055, 2.4) : (red   / 12.92);
-	const green = (green > 0.04045) ? Math.pow((green + 0.055) / 1.055, 2.4) : (green / 12.92);
-	const blue 	= (blue  > 0.04045) ? Math.pow((blue  + 0.055) / 1.055, 2.4) : (blue  / 12.92); 
+	red   = (red   > 0.04045) ? Math.pow((red   + 0.055) / 1.055, 2.4) : (red   / 12.92);
+	green = (green > 0.04045) ? Math.pow((green + 0.055) / 1.055, 2.4) : (green / 12.92);
+	blue  = (blue  > 0.04045) ? Math.pow((blue  + 0.055) / 1.055, 2.4) : (blue  / 12.92); 
 
 	// RGB values to XYZ using the Wide RGB D65 conversion formula
-	const X 		= red * 0.664511 + green * 0.154324 + blue * 0.162028;
-	const Y 		= red * 0.283881 + green * 0.668433 + blue * 0.047685;
-	const Z 		= red * 0.000088 + green * 0.072310 + blue * 0.986039;
+	const X = red * 0.664511 + green * 0.154324 + blue * 0.162028;
+	const Y = red * 0.283881 + green * 0.668433 + blue * 0.047685;
+	const Z = red * 0.000088 + green * 0.072310 + blue * 0.986039;
 
 	// Calculate the xy values from the XYZ values
-	let x 		  = (X / (X + Y + Z)).toFixed(4);
-	let y 		  = (Y / (X + Y + Z)).toFixed(4);
+	let x = (X / (X + Y + Z)).toFixed(4);
+	let y = (Y / (X + Y + Z)).toFixed(4);
 
 	if (isNaN( x)) x = 0;
 	if (isNaN( y)) y = 0;
